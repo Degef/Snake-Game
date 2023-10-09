@@ -1,7 +1,5 @@
 # Snake Game
 
-<img width="634" alt="Screen Shot 2023-10-09 at 2 27 17 PM" src="https://github.com/Degef/Snake-Game/assets/103037326/2fa614e4-1d84-438f-b4f2-ca7ad31bcd5e">
-
 This is a simple Snake game implemented in Python using the tkinter library for the graphical user interface. The game offers a classic Snake experience where the player controls a snake to collect food items and grow longer. The objective is to collect as many points as possible before colliding with the walls or the snake's own body.
 
 ## Features
@@ -22,5 +20,9 @@ This is a simple Snake game implemented in Python using the tkinter library for 
 
 ## Video
 
-https://github.com/Degef/Snake-Game/assets/103037326/47c185cb-90a6-43fd-ac01-23295ef95765
 
+https://github.com/Degef/Snake-Game/assets/103037326/803f3130-badc-4b6b-b988-2b8d07c358c5
+
+
+
+<img width="634" alt="Screen Shot 2023-10-09 at 2 27 17 PM" src="https://github.com/Degef/Snake-Game/assets/103037326/04fc2156-b8d1-4646-a138-ec2f778dc656">
