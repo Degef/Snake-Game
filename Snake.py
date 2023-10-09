@@ -12,6 +12,8 @@ BODY_PARTS = 1
 SNAKE_COLOR = "#00FF00"
 FOOD_COLOR = "#FF0000"
 BACKGROUND_COLOR = "#000000"
+highest_score = 30
+highest_score_name = "Degef"
 
 
 class Snake:
@@ -124,9 +126,10 @@ def check_collisions(snake):
 
 
 def game_restart():
-    global canvas, window, score, label, direction
+    global canvas, score, direction
 
     canvas.delete("all")
+    canvas.delete("gameover")
     score = 0
     direction = 'down'
     label.config(text="Score:{}".format(score))
@@ -136,13 +139,50 @@ def game_restart():
 
 
 
+def submit_name(name):
+    global highest_score, highest_score_name, score
+    if score > highest_score:
+        highest_score = score
+        highest_score_name = name
+    canvas.delete("gameover")
+    canvas.create_text(canvas.winfo_width() / 2, canvas.winfo_height() / 2, font=('consolas', 30), 
+	    text="Highest Scorer is {}: {}".format(highest_score_name, highest_score), fill="white", tag="gameover")
+    canvas.create_text(canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 50,
+            font=('consolas', 30), text="Press R to restart the game", fill="white", tag="gameover")
+
 def game_over():
-	canvas.delete(ALL)
-	canvas.create_text(canvas.winfo_width() / 2, canvas.winfo_height() / 2,
-                       font=('consolas', 70), text="GAME OVER", fill="red", tag="gameover")
-	canvas.create_text(canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 50,
-                       font=('consolas', 30), text="Press R to restart game", fill="white", tag="gameover")
-	window.bind('<Key-r>', lambda event: game_restart())
+    global canvas, window, score, label, direction, highest_score, highest_score_name, restart_label
+
+    canvas.delete("all")
+    score_text = canvas.create_text(
+        canvas.winfo_width() / 2, canvas.winfo_height() / 2,
+        font=('consolas', 70), text="GAME OVER", fill="red", tag="gameover")
+
+    your_score_text = canvas.create_text(
+        canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 50,
+        font=('consolas', 30), text="Your score: {}".format(score), fill="white", tag="gameover")
+
+    window.bind('<Key-r>', lambda event: game_restart())
+    restart_label = canvas.create_text(
+            canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 100,
+            font=('consolas', 30), text="Press R to restart the game", fill="white", tag="gameover")
+    if score > highest_score:
+        name_entry_label = canvas.create_text(
+            canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 150,
+            font=('consolas', 30), text="Enter your name:", fill="white", tag="gameover")
+
+        name_entry = Entry(window, font=('consolas', 30))
+        name_entry_window = canvas.create_window(
+            canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 200,
+            window=name_entry, tag="gameover")
+
+        name_entry_button = Button(
+            window, text="Submit",
+            command=lambda: submit_name(name_entry.get()),
+            font=('consolas', 30))
+        name_entry_button_window = canvas.create_window(
+            canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 250,
+            window=name_entry_button, tag="gameover")
 
 
 def main():
